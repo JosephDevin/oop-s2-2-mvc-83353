@@ -617,3 +617,4 @@ DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
 2026-03-23 10:57:07.435 +00:00 [INF] Executed page /Account/Register in 15.0626ms
 2026-03-23 10:57:07.435 +00:00 [INF] Executed endpoint '/Account/Register'
 2026-03-23 10:57:07.435 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/Account/Register?returnUrl=%2FInspections - 200 null text/html; charset=utf-8 25.0856ms
+2026-03-23 11:00:53.253 +00:00 [INF] Application is shutting down...

@@ -4,9 +4,7 @@ using oop_s2_2_mvc_83303.Models;
 
 namespace oop_s2_2_mvc_83303.Data;
 
-/// <summary>
 /// Static helper to seed the database with initial roles, users, and test data.
-/// </summary>
 public static class DbInitializer
 {
     public static async Task Seed(IServiceProvider serviceProvider)

@@ -6,11 +6,9 @@ using oop_s2_2_mvc_83303.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Task 1: Enhanced Serilog Configuration ---
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
-    // Dynamic enrichment with environment name
     .Enrich.WithProperty("Environment", builder.Environment.EnvironmentName)
     .Enrich.WithProperty("Application", "FoodSafetyTracker")
     .WriteTo.Console()
