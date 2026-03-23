@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/oop-s2-2-mvc-83303.props" />
+</Project>

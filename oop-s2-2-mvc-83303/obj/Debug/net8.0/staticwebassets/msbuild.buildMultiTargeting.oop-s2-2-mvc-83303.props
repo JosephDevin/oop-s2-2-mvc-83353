@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/oop-s2-2-mvc-83303.props" />
+</Project>

@@ -1,0 +1,619 @@
+2026-03-23 10:56:33.094 +00:00 [INF] User profile is available. Using '/home/fan/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-03-23 10:56:33.136 +00:00 [INF] Ensuring database is created and seeded.
+2026-03-23 10:56:33.669 +00:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+PRAGMA journal_mode = 'wal';
+2026-03-23 10:56:33.765 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetRoles" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_AspNetRoles" PRIMARY KEY,
+    "Name" TEXT NULL,
+    "NormalizedName" TEXT NULL,
+    "ConcurrencyStamp" TEXT NULL
+);
+2026-03-23 10:56:33.765 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUsers" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_AspNetUsers" PRIMARY KEY,
+    "UserName" TEXT NULL,
+    "NormalizedUserName" TEXT NULL,
+    "Email" TEXT NULL,
+    "NormalizedEmail" TEXT NULL,
+    "EmailConfirmed" INTEGER NOT NULL,
+    "PasswordHash" TEXT NULL,
+    "SecurityStamp" TEXT NULL,
+    "ConcurrencyStamp" TEXT NULL,
+    "PhoneNumber" TEXT NULL,
+    "PhoneNumberConfirmed" INTEGER NOT NULL,
+    "TwoFactorEnabled" INTEGER NOT NULL,
+    "LockoutEnd" TEXT NULL,
+    "LockoutEnabled" INTEGER NOT NULL,
+    "AccessFailedCount" INTEGER NOT NULL
+);
+2026-03-23 10:56:33.766 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Premises" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Premises" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "Address" TEXT NOT NULL,
+    "Town" TEXT NOT NULL,
+    "RiskRating" TEXT NOT NULL
+);
+2026-03-23 10:56:33.766 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetRoleClaims" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_AspNetRoleClaims" PRIMARY KEY AUTOINCREMENT,
+    "RoleId" TEXT NOT NULL,
+    "ClaimType" TEXT NULL,
+    "ClaimValue" TEXT NULL,
+    CONSTRAINT "FK_AspNetRoleClaims_AspNetRoles_RoleId" FOREIGN KEY ("RoleId") REFERENCES "AspNetRoles" ("Id") ON DELETE CASCADE
+);
+2026-03-23 10:56:33.766 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUserClaims" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_AspNetUserClaims" PRIMARY KEY AUTOINCREMENT,
+    "UserId" TEXT NOT NULL,
+    "ClaimType" TEXT NULL,
+    "ClaimValue" TEXT NULL,
+    CONSTRAINT "FK_AspNetUserClaims_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2026-03-23 10:56:33.767 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUserLogins" (
+    "LoginProvider" TEXT NOT NULL,
+    "ProviderKey" TEXT NOT NULL,
+    "ProviderDisplayName" TEXT NULL,
+    "UserId" TEXT NOT NULL,
+    CONSTRAINT "PK_AspNetUserLogins" PRIMARY KEY ("LoginProvider", "ProviderKey"),
+    CONSTRAINT "FK_AspNetUserLogins_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2026-03-23 10:56:33.767 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUserRoles" (
+    "UserId" TEXT NOT NULL,
+    "RoleId" TEXT NOT NULL,
+    CONSTRAINT "PK_AspNetUserRoles" PRIMARY KEY ("UserId", "RoleId"),
+    CONSTRAINT "FK_AspNetUserRoles_AspNetRoles_RoleId" FOREIGN KEY ("RoleId") REFERENCES "AspNetRoles" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_AspNetUserRoles_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2026-03-23 10:56:33.768 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUserTokens" (
+    "UserId" TEXT NOT NULL,
+    "LoginProvider" TEXT NOT NULL,
+    "Name" TEXT NOT NULL,
+    "Value" TEXT NULL,
+    CONSTRAINT "PK_AspNetUserTokens" PRIMARY KEY ("UserId", "LoginProvider", "Name"),
+    CONSTRAINT "FK_AspNetUserTokens_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2026-03-23 10:56:33.768 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Inspections" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Inspections" PRIMARY KEY AUTOINCREMENT,
+    "PremisesId" INTEGER NOT NULL,
+    "InspectionDate" TEXT NOT NULL,
+    "Score" INTEGER NOT NULL,
+    "Outcome" TEXT NOT NULL,
+    "Notes" TEXT NOT NULL,
+    CONSTRAINT "FK_Inspections_Premises_PremisesId" FOREIGN KEY ("PremisesId") REFERENCES "Premises" ("Id") ON DELETE CASCADE
+);
+2026-03-23 10:56:33.768 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "FollowUps" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_FollowUps" PRIMARY KEY AUTOINCREMENT,
+    "InspectionId" INTEGER NOT NULL,
+    "DueDate" TEXT NOT NULL,
+    "Status" TEXT NOT NULL,
+    "ClosedDate" TEXT NULL,
+    CONSTRAINT "FK_FollowUps_Inspections_InspectionId" FOREIGN KEY ("InspectionId") REFERENCES "Inspections" ("Id") ON DELETE CASCADE
+);
+2026-03-23 10:56:33.769 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_AspNetRoleClaims_RoleId" ON "AspNetRoleClaims" ("RoleId");
+2026-03-23 10:56:33.769 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "RoleNameIndex" ON "AspNetRoles" ("NormalizedName");
+2026-03-23 10:56:33.770 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_AspNetUserClaims_UserId" ON "AspNetUserClaims" ("UserId");
+2026-03-23 10:56:33.770 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_AspNetUserLogins_UserId" ON "AspNetUserLogins" ("UserId");
+2026-03-23 10:56:33.770 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_AspNetUserRoles_RoleId" ON "AspNetUserRoles" ("RoleId");
+2026-03-23 10:56:33.771 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "EmailIndex" ON "AspNetUsers" ("NormalizedEmail");
+2026-03-23 10:56:33.771 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "UserNameIndex" ON "AspNetUsers" ("NormalizedUserName");
+2026-03-23 10:56:33.771 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_FollowUps_InspectionId" ON "FollowUps" ("InspectionId");
+2026-03-23 10:56:33.772 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Inspections_PremisesId" ON "Inspections" ("PremisesId");
+2026-03-23 10:56:33.961 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-23 10:56:33.970 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-23 10:56:34.066 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[@p0='?' (Size = 36), @p1='?', @p2='?' (Size = 5), @p3='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES (@p0, @p1, @p2, @p3);
+2026-03-23 10:56:34.071 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-23 10:56:34.072 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-23 10:56:34.081 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 36), @p1='?', @p2='?' (Size = 9), @p3='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES (@p0, @p1, @p2, @p3);
+2026-03-23 10:56:34.082 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-23 10:56:34.083 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-23 10:56:34.091 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 36), @p1='?', @p2='?' (Size = 6), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES (@p0, @p1, @p2, @p3);
+2026-03-23 10:56:34.100 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2026-03-23 10:56:34.243 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2026-03-23 10:56:34.292 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@p0='?' (Size = 36), @p1='?' (DbType = Int32), @p2='?' (Size = 36), @p3='?' (Size = 14), @p4='?' (DbType = Boolean), @p5='?' (DbType = Boolean), @p6='?' (DbType = DateTimeOffset), @p7='?' (Size = 14), @p8='?' (Size = 14), @p9='?' (Size = 84), @p10='?', @p11='?' (DbType = Boolean), @p12='?' (Size = 32), @p13='?' (DbType = Boolean), @p14='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14);
+2026-03-23 10:56:34.299 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2026-03-23 10:56:34.318 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 36), @__p_1='?' (Size = 36)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."UserId", "a"."RoleId"
+FROM "AspNetUserRoles" AS "a"
+WHERE "a"."UserId" = @__p_0 AND "a"."RoleId" = @__p_1
+LIMIT 1
+2026-03-23 10:56:34.320 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2026-03-23 10:56:34.327 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2026-03-23 10:56:34.337 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 36), @p1='?' (Size = 36)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+VALUES (@p0, @p1);
+2026-03-23 10:56:34.339 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p14='?' (Size = 36), @p0='?' (DbType = Int32), @p1='?' (Size = 36), @p15='?' (Size = 36), @p2='?' (Size = 14), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 14), @p7='?' (Size = 14), @p8='?' (Size = 84), @p9='?', @p10='?' (DbType = Boolean), @p11='?' (Size = 32), @p12='?' (DbType = Boolean), @p13='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "AspNetUsers" SET "AccessFailedCount" = @p0, "ConcurrencyStamp" = @p1, "Email" = @p2, "EmailConfirmed" = @p3, "LockoutEnabled" = @p4, "LockoutEnd" = @p5, "NormalizedEmail" = @p6, "NormalizedUserName" = @p7, "PasswordHash" = @p8, "PhoneNumber" = @p9, "PhoneNumberConfirmed" = @p10, "SecurityStamp" = @p11, "TwoFactorEnabled" = @p12, "UserName" = @p13
+WHERE "Id" = @p14 AND "ConcurrencyStamp" = @p15
+RETURNING 1;
+2026-03-23 10:56:34.352 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 18)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2026-03-23 10:56:34.411 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 18)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2026-03-23 10:56:34.432 +00:00 [INF] Executed DbCommand (18ms) [Parameters=[@p0='?' (Size = 36), @p1='?' (DbType = Int32), @p2='?' (Size = 36), @p3='?' (Size = 18), @p4='?' (DbType = Boolean), @p5='?' (DbType = Boolean), @p6='?' (DbType = DateTimeOffset), @p7='?' (Size = 18), @p8='?' (Size = 18), @p9='?' (Size = 84), @p10='?', @p11='?' (DbType = Boolean), @p12='?' (Size = 32), @p13='?' (DbType = Boolean), @p14='?' (Size = 18)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14);
+2026-03-23 10:56:34.433 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2026-03-23 10:56:34.434 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 36), @__p_1='?' (Size = 36)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."UserId", "a"."RoleId"
+FROM "AspNetUserRoles" AS "a"
+WHERE "a"."UserId" = @__p_0 AND "a"."RoleId" = @__p_1
+LIMIT 1
+2026-03-23 10:56:34.435 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2026-03-23 10:56:34.436 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 18)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2026-03-23 10:56:34.437 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 36), @p1='?' (Size = 36)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+VALUES (@p0, @p1);
+2026-03-23 10:56:34.437 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p14='?' (Size = 36), @p0='?' (DbType = Int32), @p1='?' (Size = 36), @p15='?' (Size = 36), @p2='?' (Size = 18), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 18), @p7='?' (Size = 18), @p8='?' (Size = 84), @p9='?', @p10='?' (DbType = Boolean), @p11='?' (Size = 32), @p12='?' (DbType = Boolean), @p13='?' (Size = 18)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "AspNetUsers" SET "AccessFailedCount" = @p0, "ConcurrencyStamp" = @p1, "Email" = @p2, "EmailConfirmed" = @p3, "LockoutEnabled" = @p4, "LockoutEnd" = @p5, "NormalizedEmail" = @p6, "NormalizedUserName" = @p7, "PasswordHash" = @p8, "PhoneNumber" = @p9, "PhoneNumberConfirmed" = @p10, "SecurityStamp" = @p11, "TwoFactorEnabled" = @p12, "UserName" = @p13
+WHERE "Id" = @p14 AND "ConcurrencyStamp" = @p15
+RETURNING 1;
+2026-03-23 10:56:34.446 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2026-03-23 10:56:34.504 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2026-03-23 10:56:34.513 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 36), @p1='?' (DbType = Int32), @p2='?' (Size = 36), @p3='?' (Size = 15), @p4='?' (DbType = Boolean), @p5='?' (DbType = Boolean), @p6='?' (DbType = DateTimeOffset), @p7='?' (Size = 15), @p8='?' (Size = 15), @p9='?' (Size = 84), @p10='?', @p11='?' (DbType = Boolean), @p12='?' (Size = 32), @p13='?' (DbType = Boolean), @p14='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14);
+2026-03-23 10:56:34.514 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2026-03-23 10:56:34.515 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 36), @__p_1='?' (Size = 36)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."UserId", "a"."RoleId"
+FROM "AspNetUserRoles" AS "a"
+WHERE "a"."UserId" = @__p_0 AND "a"."RoleId" = @__p_1
+LIMIT 1
+2026-03-23 10:56:34.516 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2026-03-23 10:56:34.517 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2026-03-23 10:56:34.518 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 36), @p1='?' (Size = 36)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+VALUES (@p0, @p1);
+2026-03-23 10:56:34.518 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p14='?' (Size = 36), @p0='?' (DbType = Int32), @p1='?' (Size = 36), @p15='?' (Size = 36), @p2='?' (Size = 15), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 15), @p7='?' (Size = 15), @p8='?' (Size = 84), @p9='?', @p10='?' (DbType = Boolean), @p11='?' (Size = 32), @p12='?' (DbType = Boolean), @p13='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "AspNetUsers" SET "AccessFailedCount" = @p0, "ConcurrencyStamp" = @p1, "Email" = @p2, "EmailConfirmed" = @p3, "LockoutEnabled" = @p4, "LockoutEnd" = @p5, "NormalizedEmail" = @p6, "NormalizedUserName" = @p7, "PasswordHash" = @p8, "PhoneNumber" = @p9, "PhoneNumberConfirmed" = @p10, "SecurityStamp" = @p11, "TwoFactorEnabled" = @p12, "UserName" = @p13
+WHERE "Id" = @p14 AND "ConcurrencyStamp" = @p15
+RETURNING 1;
+2026-03-23 10:56:34.535 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Premises" AS "p")
+2026-03-23 10:56:34.565 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 6), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.573 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 3), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.574 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 4), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.574 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 6), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.575 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 3), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.575 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 4), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.576 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 6), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.577 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 3), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.577 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 9), @p1='?' (Size = 12), @p2='?' (Size = 4), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.577 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 10), @p1='?' (Size = 13), @p2='?' (Size = 6), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.578 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 10), @p1='?' (Size = 13), @p2='?' (Size = 3), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.578 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 10), @p1='?' (Size = 13), @p2='?' (Size = 4), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Premises" ("Address", "Name", "RiskRating", "Town")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.612 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.615 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.616 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.616 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.617 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.617 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.618 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.619 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.619 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 21), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.620 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.620 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.621 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.621 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.621 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.622 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.623 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.623 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.624 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.624 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.625 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.625 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.626 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.627 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.627 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.628 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (Size = 22), @p2='?' (Size = 4), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inspections" ("InspectionDate", "Notes", "Outcome", "PremisesId", "Score")
+VALUES (@p0, @p1, @p2, @p3, @p4)
+RETURNING "Id";
+2026-03-23 10:56:34.652 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.654 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.655 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.655 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.656 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.656 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.657 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.657 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.658 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.658 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "FollowUps" ("ClosedDate", "DueDate", "InspectionId", "Status")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2026-03-23 10:56:34.792 +00:00 [INF] Food Safety Tracker starting up in Development mode
+2026-03-23 10:56:34.853 +00:00 [INF] Now listening on: http://localhost:5022
+2026-03-23 10:56:34.854 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-03-23 10:56:34.854 +00:00 [INF] Hosting environment: Development
+2026-03-23 10:56:34.854 +00:00 [INF] Content root path: /home/fan/Desktop/neuille/oop-s2-2-mvc-83303
+2026-03-23 10:56:40.357 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/ - null null
+2026-03-23 10:56:40.363 +00:00 [WRN] Failed to determine the https port for redirect.
+2026-03-23 10:56:40.409 +00:00 [INF] Executing endpoint 'oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303)'
+2026-03-23 10:56:40.419 +00:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller oop_s2_2_mvc_83303.Controllers.HomeController (oop-s2-2-mvc-83303).
+2026-03-23 10:56:40.430 +00:00 [INF] Executing ViewResult, running view Index.
+2026-03-23 10:56:40.540 +00:00 [INF] Executed ViewResult - view Index executed in 111.9527ms.
+2026-03-23 10:56:40.543 +00:00 [INF] Executed action oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303) in 122.2177ms
+2026-03-23 10:56:40.543 +00:00 [INF] Executed endpoint 'oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303)'
+2026-03-23 10:56:40.549 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/ - 200 null text/html; charset=utf-8 192.9311ms
+2026-03-23 10:56:40.566 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/lib/jquery/dist/jquery.min.js - null null
+2026-03-23 10:56:40.566 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2026-03-23 10:56:40.566 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/css/site.css?v=j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg - null null
+2026-03-23 10:56:40.566 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - null null
+2026-03-23 10:56:40.566 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css - null null
+2026-03-23 10:56:40.568 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2026-03-23 10:56:40.571 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css - 404 0 null 5.1659ms
+2026-03-23 10:56:40.574 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css, Response status code: 404
+2026-03-23 10:56:40.581 +00:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: '/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/wwwroot/css/site.css'
+2026-03-23 10:56:40.581 +00:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: '/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/wwwroot/js/site.js'
+2026-03-23 10:56:40.581 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/css/site.css?v=j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg - 200 667 text/css 15.1408ms
+2026-03-23 10:56:40.581 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - 200 231 text/javascript 15.1765ms
+2026-03-23 10:56:40.582 +00:00 [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: '/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/wwwroot/lib/jquery/dist/jquery.min.js'
+2026-03-23 10:56:40.583 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/lib/jquery/dist/jquery.min.js - 200 87533 text/javascript 16.9594ms
+2026-03-23 10:56:40.586 +00:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: '/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js'
+2026-03-23 10:56:40.586 +00:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: '/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css'
+2026-03-23 10:56:40.586 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 80721 text/javascript 20.2266ms
+2026-03-23 10:56:40.586 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/lib/bootstrap/dist/css/bootstrap.min.css - 200 232803 text/css 18.7543ms
+2026-03-23 10:56:40.797 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/favicon.ico - null null
+2026-03-23 10:56:40.799 +00:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: '/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/wwwroot/favicon.ico'
+2026-03-23 10:56:40.800 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/favicon.ico - 200 5430 image/x-icon 2.9148ms
+2026-03-23 10:56:42.844 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Inspections - null null
+2026-03-23 10:56:42.859 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-03-23 10:56:42.865 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2026-03-23 10:56:42.865 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Inspections - 302 0 null 20.8992ms
+2026-03-23 10:56:42.871 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FInspections - null null
+2026-03-23 10:56:42.872 +00:00 [INF] Executing endpoint '/Account/Login'
+2026-03-23 10:56:42.893 +00:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2026-03-23 10:56:42.909 +00:00 [INF] Executing handler method Microsoft.AspNetCore.Identity.UI.V5.Pages.Account.Internal.LoginModel.OnGetAsync - ModelState is "Valid"
+2026-03-23 10:56:42.915 +00:00 [INF] AuthenticationScheme: Identity.External signed out.
+2026-03-23 10:56:42.917 +00:00 [INF] Executed handler method OnGetAsync, returned result .
+2026-03-23 10:56:42.919 +00:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2026-03-23 10:56:42.919 +00:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2026-03-23 10:56:42.975 +00:00 [INF] Executed page /Account/Login in 81.8825ms
+2026-03-23 10:56:42.976 +00:00 [INF] Executed endpoint '/Account/Login'
+2026-03-23 10:56:42.976 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FInspections - 200 null text/html; charset=utf-8 104.693ms
+2026-03-23 10:56:43.004 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/bootstrap/dist/css/bootstrap.css - null null
+2026-03-23 10:56:43.005 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/css/site.css - null null
+2026-03-23 10:56:43.005 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - null null
+2026-03-23 10:56:43.006 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery-validation/dist/jquery.validate.js - null null
+2026-03-23 10:56:43.005 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/bootstrap/dist/js/bootstrap.bundle.js - null null
+2026-03-23 10:56:43.005 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery/dist/jquery.js - null null
+2026-03-23 10:56:43.006 +00:00 [INF] Sending file. Request path: '/Identity/css/site.css'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/css/site.css'
+2026-03-23 10:56:43.007 +00:00 [INF] Sending file. Request path: '/Identity/js/site.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/js/site.js'
+2026-03-23 10:56:43.007 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/css/site.css - 200 1592 text/css 2.1115ms
+2026-03-23 10:56:43.007 +00:00 [INF] Sending file. Request path: '/Identity/lib/jquery-validation/dist/jquery.validate.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/jquery-validation/dist/jquery.validate.js'
+2026-03-23 10:56:43.008 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - 200 231 text/javascript 2.0997ms
+2026-03-23 10:56:43.007 +00:00 [INF] Sending file. Request path: '/Identity/lib/bootstrap/dist/css/bootstrap.css'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/bootstrap/dist/css/bootstrap.css'
+2026-03-23 10:56:43.008 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery-validation/dist/jquery.validate.js - 200 51171 text/javascript 2.2708ms
+2026-03-23 10:56:43.008 +00:00 [INF] Sending file. Request path: '/Identity/lib/bootstrap/dist/js/bootstrap.bundle.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/bootstrap/dist/js/bootstrap.bundle.js'
+2026-03-23 10:56:43.008 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/bootstrap/dist/css/bootstrap.css - 200 204136 text/css 4.0973ms
+2026-03-23 10:56:43.009 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/bootstrap/dist/js/bootstrap.bundle.js - 200 208492 text/javascript 3.2289ms
+2026-03-23 10:56:43.009 +00:00 [INF] Sending file. Request path: '/Identity/lib/jquery/dist/jquery.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/jquery/dist/jquery.js'
+2026-03-23 10:56:43.009 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery/dist/jquery.js - 200 288580 text/javascript 3.5513ms
+2026-03-23 10:56:43.015 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js - null null
+2026-03-23 10:56:43.016 +00:00 [INF] Sending file. Request path: '/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js'
+2026-03-23 10:56:43.017 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js - 200 19385 text/javascript 1.5033ms
+2026-03-23 10:56:49.601 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Dashboard - null null
+2026-03-23 10:56:49.607 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-03-23 10:56:49.608 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2026-03-23 10:56:49.608 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Dashboard - 302 0 null 7.6959ms
+2026-03-23 10:56:49.615 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FDashboard - null null
+2026-03-23 10:56:49.621 +00:00 [INF] Executing endpoint '/Account/Login'
+2026-03-23 10:56:49.622 +00:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2026-03-23 10:56:49.640 +00:00 [INF] Executing handler method Microsoft.AspNetCore.Identity.UI.V5.Pages.Account.Internal.LoginModel.OnGetAsync - ModelState is "Valid"
+2026-03-23 10:56:49.640 +00:00 [INF] AuthenticationScheme: Identity.External signed out.
+2026-03-23 10:56:49.640 +00:00 [INF] Executed handler method OnGetAsync, returned result .
+2026-03-23 10:56:49.640 +00:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2026-03-23 10:56:49.641 +00:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2026-03-23 10:56:49.649 +00:00 [INF] Executed page /Account/Login in 26.5226ms
+2026-03-23 10:56:49.649 +00:00 [INF] Executed endpoint '/Account/Login'
+2026-03-23 10:56:49.649 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FDashboard - 200 null text/html; charset=utf-8 33.74ms
+2026-03-23 10:56:51.825 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Inspections - null null
+2026-03-23 10:56:51.827 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-03-23 10:56:51.828 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2026-03-23 10:56:51.828 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Inspections - 302 0 null 3.2263ms
+2026-03-23 10:56:51.843 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FInspections - null null
+2026-03-23 10:56:51.844 +00:00 [INF] Executing endpoint '/Account/Login'
+2026-03-23 10:56:51.845 +00:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2026-03-23 10:56:51.846 +00:00 [INF] Executing handler method Microsoft.AspNetCore.Identity.UI.V5.Pages.Account.Internal.LoginModel.OnGetAsync - ModelState is "Valid"
+2026-03-23 10:56:51.847 +00:00 [INF] AuthenticationScheme: Identity.External signed out.
+2026-03-23 10:56:51.847 +00:00 [INF] Executed handler method OnGetAsync, returned result .
+2026-03-23 10:56:51.847 +00:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2026-03-23 10:56:51.848 +00:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2026-03-23 10:56:51.851 +00:00 [INF] Executed page /Account/Login in 6.0592ms
+2026-03-23 10:56:51.851 +00:00 [INF] Executed endpoint '/Account/Login'
+2026-03-23 10:56:51.852 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FInspections - 200 null text/html; charset=utf-8 8.4061ms
+2026-03-23 10:56:54.653 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/ - null null
+2026-03-23 10:56:54.653 +00:00 [INF] Executing endpoint 'oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303)'
+2026-03-23 10:56:54.653 +00:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller oop_s2_2_mvc_83303.Controllers.HomeController (oop-s2-2-mvc-83303).
+2026-03-23 10:56:54.654 +00:00 [INF] Executing ViewResult, running view Index.
+2026-03-23 10:56:54.656 +00:00 [INF] Executed ViewResult - view Index executed in 2.2334ms.
+2026-03-23 10:56:54.657 +00:00 [INF] Executed action oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303) in 3.1482ms
+2026-03-23 10:56:54.657 +00:00 [INF] Executed endpoint 'oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303)'
+2026-03-23 10:56:54.657 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/ - 200 null text/html; charset=utf-8 4.5202ms
+2026-03-23 10:56:54.681 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css - null null
+2026-03-23 10:56:54.682 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css - 404 0 null 0.599ms
+2026-03-23 10:56:54.682 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css, Response status code: 404
+2026-03-23 10:56:55.534 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Home/Privacy - null null
+2026-03-23 10:56:55.534 +00:00 [INF] Executing endpoint 'oop_s2_2_mvc_83303.Controllers.HomeController.Privacy (oop-s2-2-mvc-83303)'
+2026-03-23 10:56:55.538 +00:00 [INF] Route matched with {action = "Privacy", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Privacy() on controller oop_s2_2_mvc_83303.Controllers.HomeController (oop-s2-2-mvc-83303).
+2026-03-23 10:56:55.540 +00:00 [INF] Executing ViewResult, running view Privacy.
+2026-03-23 10:56:55.544 +00:00 [INF] Executed ViewResult - view Privacy executed in 5.528ms.
+2026-03-23 10:56:55.544 +00:00 [INF] Executed action oop_s2_2_mvc_83303.Controllers.HomeController.Privacy (oop-s2-2-mvc-83303) in 6.1061ms
+2026-03-23 10:56:55.545 +00:00 [INF] Executed endpoint 'oop_s2_2_mvc_83303.Controllers.HomeController.Privacy (oop-s2-2-mvc-83303)'
+2026-03-23 10:56:55.545 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Home/Privacy - 200 null text/html; charset=utf-8 11.3351ms
+2026-03-23 10:56:55.571 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css - null null
+2026-03-23 10:56:55.572 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css - 404 0 null 0.52ms
+2026-03-23 10:56:55.572 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css, Response status code: 404
+2026-03-23 10:56:56.205 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Inspections - null null
+2026-03-23 10:56:56.206 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-03-23 10:56:56.206 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2026-03-23 10:56:56.207 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Inspections - 302 0 null 1.6568ms
+2026-03-23 10:56:56.211 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FInspections - null null
+2026-03-23 10:56:56.212 +00:00 [INF] Executing endpoint '/Account/Login'
+2026-03-23 10:56:56.212 +00:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2026-03-23 10:56:56.213 +00:00 [INF] Executing handler method Microsoft.AspNetCore.Identity.UI.V5.Pages.Account.Internal.LoginModel.OnGetAsync - ModelState is "Valid"
+2026-03-23 10:56:56.213 +00:00 [INF] AuthenticationScheme: Identity.External signed out.
+2026-03-23 10:56:56.213 +00:00 [INF] Executed handler method OnGetAsync, returned result .
+2026-03-23 10:56:56.214 +00:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2026-03-23 10:56:56.214 +00:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2026-03-23 10:56:56.218 +00:00 [INF] Executed page /Account/Login in 5.1604ms
+2026-03-23 10:56:56.218 +00:00 [INF] Executed endpoint '/Account/Login'
+2026-03-23 10:56:56.218 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FInspections - 200 null text/html; charset=utf-8 7.3162ms
+2026-03-23 10:57:07.410 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/Account/Register?returnUrl=%2FInspections - null null
+2026-03-23 10:57:07.411 +00:00 [INF] Executing endpoint '/Account/Register'
+2026-03-23 10:57:07.420 +00:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2026-03-23 10:57:07.421 +00:00 [INF] Executing handler method Microsoft.AspNetCore.Identity.UI.V5.Pages.Account.Internal.RegisterModel.OnGetAsync - ModelState is "Valid"
+2026-03-23 10:57:07.423 +00:00 [INF] Executed handler method OnGetAsync, returned result .
+2026-03-23 10:57:07.423 +00:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2026-03-23 10:57:07.423 +00:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2026-03-23 10:57:07.435 +00:00 [INF] Executed page /Account/Register in 15.0626ms
+2026-03-23 10:57:07.435 +00:00 [INF] Executed endpoint '/Account/Register'
+2026-03-23 10:57:07.435 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/Account/Register?returnUrl=%2FInspections - 200 null text/html; charset=utf-8 25.0856ms
