@@ -1,0 +1,41 @@
+@model oop_s2_2_mvc_83303.Models.FollowUp
+
+@{
+    ViewData["Title"] = "Create Follow-up";
+}
+
+<h1>Create Follow-up</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="InspectionId" />
+            <div class="form-group mb-3">
+                <label asp-for="DueDate" class="control-label"></label>
+                <input asp-for="DueDate" class="form-control" type="date" />
+                <span asp-validation-for="DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="Open">Open</option>
+                    <option value="Closed">Closed</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Inspections" asp-action="Details" asp-route-id="@Model.InspectionId">Back to Inspection</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

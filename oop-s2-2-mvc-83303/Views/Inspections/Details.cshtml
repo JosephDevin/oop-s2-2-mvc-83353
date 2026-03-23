@@ -1,0 +1,54 @@
+@model oop_s2_2_mvc_83303.Models.Inspection
+
+@{
+    ViewData["Title"] = "Inspection Details";
+}
+
+<h1>Inspection Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">Premises</dt>
+        <dd class = "col-sm-10">@Model.Premises?.Name (@Model.Premises?.Town)</dd>
+        <dt class = "col-sm-2">Date</dt>
+        <dd class = "col-sm-10">@Model.InspectionDate.ToLongDateString()</dd>
+        <dt class = "col-sm-2">Score</dt>
+        <dd class = "col-sm-10">@Model.Score</dd>
+        <dt class = "col-sm-2">Outcome</dt>
+        <dd class = "col-sm-10">@Model.Outcome</dd>
+        <dt class = "col-sm-2">Notes</dt>
+        <dd class = "col-sm-10">@Model.Notes</dd>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <h3>Follow-ups</h3>
+    @if (User.IsInRole("Admin") || User.IsInRole("Inspector"))
+    {
+        <a asp-controller="FollowUps" asp-action="Create" asp-route-inspectionId="@Model.Id" class="btn btn-sm btn-secondary mb-2">Add Follow-up</a>
+    }
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Closed Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var f in Model.FollowUps)
+            {
+                <tr>
+                    <td>@f.DueDate.ToShortDateString()</td>
+                    <td>@f.Status</td>
+                    <td>@f.ClosedDate?.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

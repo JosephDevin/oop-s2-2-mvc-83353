@@ -1,0 +1,39 @@
+@model IEnumerable<oop_s2_2_mvc_83303.Models.Inspection>
+
+@{
+    ViewData["Title"] = "Inspections";
+}
+
+<h1>Inspections</h1>
+
+<p>
+    @if (User.IsInRole("Admin") || User.IsInRole("Inspector"))
+    {
+        <a asp-action="Create" class="btn btn-primary">Create New Inspection</a>
+    }
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Premises</th>
+            <th>Score</th>
+            <th>Outcome</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@item.InspectionDate.ToShortDateString()</td>
+            <td>@item.Premises?.Name</td>
+            <td>@item.Score</td>
+            <td>@item.Outcome</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

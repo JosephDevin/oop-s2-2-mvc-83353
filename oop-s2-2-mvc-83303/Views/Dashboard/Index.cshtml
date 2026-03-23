@@ -1,0 +1,98 @@
+@model oop_s2_2_mvc_83303.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-4">
+    <h1>Inspection Tracker Dashboard</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Inspections This Month</div>
+                <div class="card-body">
+                    <h5 class="card-title text-center" style="font-size: 2.5rem;">@Model.TotalInspectionsThisMonth</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Failed This Month</div>
+                <div class="card-body">
+                    <h5 class="card-title text-center" style="font-size: 2.5rem;">@Model.FailedInspectionsThisMonth</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Overdue Follow-ups</div>
+                <div class="card-body">
+                    <h5 class="card-title text-center" style="font-size: 2.5rem;">@Model.OverdueFollowUps</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Filters</h4>
+        </div>
+        <div class="card-body">
+            <form method="get" class="row">
+                <div class="col-md-4">
+                    <label class="form-label">Town</label>
+                    <select name="town" class="form-select">
+                        <option value="">All Towns</option>
+                        @foreach (var t in Model.Towns)
+                        {
+                            <option value="@t" selected="@(Model.SelectedTown == t)">@t</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Risk Rating</label>
+                    <select name="riskRating" class="form-select">
+                        <option value="">All Ratings</option>
+                        @foreach (var r in Model.RiskRatings)
+                        {
+                            <option value="@r" selected="@(Model.SelectedRiskRating == r)">@r</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-secondary w-100">Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h4>Filtered Inspections</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Premises</th>
+                    <th>Town</th>
+                    <th>Risk</th>
+                    <th>Score</th>
+                    <th>Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.RecentInspections)
+                {
+                    <tr>
+                        <td>@i.InspectionDate.ToShortDateString()</td>
+                        <td>@i.Premises?.Name</td>
+                        <td>@i.Premises?.Town</td>
+                        <td>@i.Premises?.RiskRating</td>
+                        <td>@i.Score</td>
+                        <td class="@(i.Outcome == "Fail" ? "text-danger fw-bold" : "text-success")">@i.Outcome</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
