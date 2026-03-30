@@ -1,0 +1,106 @@
+2026-03-30 13:24:36.461 +01:00 [INF] User profile is available. Using '/home/fan/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-03-30 13:24:36.582 +01:00 [INF] Ensuring database is created and seeded.
+2026-03-30 13:24:37.778 +01:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-03-30 13:24:38.143 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[@__normalizedName_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-30 13:24:38.230 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-30 13:24:38.233 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "AspNetRoles" AS "a"
+WHERE "a"."NormalizedName" = @__normalizedName_0
+LIMIT 1
+2026-03-30 13:24:38.245 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2026-03-30 13:24:38.304 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 18)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2026-03-30 13:24:38.305 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "AspNetUsers" AS "a"
+WHERE "a"."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2026-03-30 13:24:38.325 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Premises" AS "p")
+2026-03-30 13:24:38.506 +01:00 [INF] Food Safety Tracker starting up in Development mode
+2026-03-30 13:24:38.604 +01:00 [INF] Now listening on: http://localhost:5022
+2026-03-30 13:24:38.604 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-03-30 13:24:38.605 +01:00 [INF] Hosting environment: Development
+2026-03-30 13:24:38.605 +01:00 [INF] Content root path: /home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303
+2026-03-30 13:24:39.269 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/ - null null
+2026-03-30 13:24:39.280 +01:00 [WRN] Failed to determine the https port for redirect.
+2026-03-30 13:24:39.337 +01:00 [INF] Executing endpoint 'oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303)'
+2026-03-30 13:24:39.349 +01:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller oop_s2_2_mvc_83303.Controllers.HomeController (oop-s2-2-mvc-83303).
+2026-03-30 13:24:39.365 +01:00 [INF] Executing action method oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303) - Validation state: "Valid"
+2026-03-30 13:24:39.374 +01:00 [INF] Executed action method oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303), returned result Microsoft.AspNetCore.Mvc.ViewResult in 1.5579ms.
+2026-03-30 13:24:39.394 +01:00 [INF] Executing ViewResult, running view Index.
+2026-03-30 13:24:39.575 +01:00 [INF] Executed ViewResult - view Index executed in 182.2778ms.
+2026-03-30 13:24:39.581 +01:00 [INF] Executed action oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303) in 229.9375ms
+2026-03-30 13:24:39.581 +01:00 [INF] Executed endpoint 'oop_s2_2_mvc_83303.Controllers.HomeController.Index (oop-s2-2-mvc-83303)'
+2026-03-30 13:24:39.589 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/ - 200 null text/html; charset=utf-8 320.4334ms
+2026-03-30 13:24:39.608 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2026-03-30 13:24:39.608 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/css/site.css?v=zeR5PHeeHbxfGkL8WV86OzdoF6UnjuCmnagaocD-cbo - null null
+2026-03-30 13:24:39.610 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css - null null
+2026-03-30 13:24:39.611 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/lib/jquery/dist/jquery.min.js - null null
+2026-03-30 13:24:39.619 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2026-03-30 13:24:39.619 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/js/site.js?v=y_Ngd8W21UpuCUhEqGbUKDEqFnNfTjAfb24GhJJGUyM - null null
+2026-03-30 13:24:39.624 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css - 404 0 null 13.9933ms
+2026-03-30 13:24:39.629 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5022/oop_s2_2_mvc_83303.styles.css, Response status code: 404
+2026-03-30 13:24:39.650 +01:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: '/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/wwwroot/css/site.css'
+2026-03-30 13:24:39.650 +01:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: '/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js'
+2026-03-30 13:24:39.650 +01:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: '/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/wwwroot/js/site.js'
+2026-03-30 13:24:39.650 +01:00 [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: '/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/wwwroot/lib/jquery/dist/jquery.min.js'
+2026-03-30 13:24:39.650 +01:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: '/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css'
+2026-03-30 13:24:39.651 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/lib/bootstrap/dist/css/bootstrap.min.css - 200 232803 text/css 43.9838ms
+2026-03-30 13:24:39.651 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 80721 text/javascript 32.4216ms
+2026-03-30 13:24:39.651 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/css/site.css?v=zeR5PHeeHbxfGkL8WV86OzdoF6UnjuCmnagaocD-cbo - 200 637 text/css 42.8424ms
+2026-03-30 13:24:39.652 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/js/site.js?v=y_Ngd8W21UpuCUhEqGbUKDEqFnNfTjAfb24GhJJGUyM - 200 227 text/javascript 32.6348ms
+2026-03-30 13:24:39.652 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/lib/jquery/dist/jquery.min.js - 200 87533 text/javascript 40.0772ms
+2026-03-30 13:24:39.903 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/favicon.ico - null null
+2026-03-30 13:24:39.906 +01:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: '/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/wwwroot/favicon.ico'
+2026-03-30 13:24:39.907 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/favicon.ico - 200 5430 image/x-icon 4.442ms
+2026-03-30 13:24:42.555 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Dashboard - null null
+2026-03-30 13:24:42.566 +01:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-03-30 13:24:42.570 +01:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2026-03-30 13:24:42.570 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Dashboard - 302 0 null 15.7084ms
+2026-03-30 13:24:42.578 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FDashboard - null null
+2026-03-30 13:24:42.579 +01:00 [INF] Executing endpoint '/Account/Login'
+2026-03-30 13:24:42.603 +01:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2026-03-30 13:24:42.630 +01:00 [INF] Executing handler method Microsoft.AspNetCore.Identity.UI.V5.Pages.Account.Internal.LoginModel.OnGetAsync - ModelState is "Valid"
+2026-03-30 13:24:42.639 +01:00 [INF] AuthenticationScheme: Identity.External signed out.
+2026-03-30 13:24:42.641 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2026-03-30 13:24:42.647 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2026-03-30 13:24:42.648 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2026-03-30 13:24:42.766 +01:00 [INF] Executed page /Account/Login in 161.788ms
+2026-03-30 13:24:42.766 +01:00 [INF] Executed endpoint '/Account/Login'
+2026-03-30 13:24:42.766 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/Account/Login?ReturnUrl=%2FDashboard - 200 null text/html; charset=utf-8 188.07ms
+2026-03-30 13:24:42.802 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/bootstrap/dist/css/bootstrap.css - null null
+2026-03-30 13:24:42.805 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery/dist/jquery.js - null null
+2026-03-30 13:24:42.805 +01:00 [INF] Sending file. Request path: '/Identity/lib/bootstrap/dist/css/bootstrap.css'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/bootstrap/dist/css/bootstrap.css'
+2026-03-30 13:24:42.805 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery-validation/dist/jquery.validate.js - null null
+2026-03-30 13:24:42.805 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js - null null
+2026-03-30 13:24:42.805 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5022/Identity/lib/bootstrap/dist/js/bootstrap.bundle.js - null null
+2026-03-30 13:24:42.806 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/bootstrap/dist/css/bootstrap.css - 200 204136 text/css 3.4377ms
+2026-03-30 13:24:42.807 +01:00 [INF] Sending file. Request path: '/Identity/lib/jquery/dist/jquery.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/jquery/dist/jquery.js'
+2026-03-30 13:24:42.807 +01:00 [INF] Sending file. Request path: '/Identity/lib/jquery-validation/dist/jquery.validate.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/jquery-validation/dist/jquery.validate.js'
+2026-03-30 13:24:42.808 +01:00 [INF] Sending file. Request path: '/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js'
+2026-03-30 13:24:42.808 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery-validation/dist/jquery.validate.js - 200 51171 text/javascript 2.3566ms
+2026-03-30 13:24:42.808 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery/dist/jquery.js - 200 288580 text/javascript 3.2389ms
+2026-03-30 13:24:42.808 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js - 200 19385 text/javascript 2.6332ms
+2026-03-30 13:24:42.809 +01:00 [INF] Sending file. Request path: '/Identity/lib/bootstrap/dist/js/bootstrap.bundle.js'. Physical path: '/home/fan/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/staticwebassets/V5/lib/bootstrap/dist/js/bootstrap.bundle.js'
+2026-03-30 13:24:42.810 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5022/Identity/lib/bootstrap/dist/js/bootstrap.bundle.js - 200 208492 text/javascript 4.4039ms

@@ -1,7 +1,5 @@
 is_global = true
 build_property.TargetFramework = net8.0
-build_property.TargetFrameworkIdentifier = .NETCoreApp
-build_property.TargetFrameworkVersion = v8.0
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
@@ -11,65 +9,63 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = oop_s2_2_mvc_83303
 build_property.RootNamespace = oop_s2_2_mvc_83303
-build_property.ProjectDir = /home/fan/Desktop/neuille/oop-s2-2-mvc-83303/
+build_property.ProjectDir = /home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/fan/Desktop/neuille/oop-s2-2-mvc-83303
+build_property.MSBuildProjectDirectory = /home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303
 build_property._RazorSourceGeneratorDebug = 
-build_property.EffectiveAnalysisLevelStyle = 8.0
-build_property.EnableCodeStyleSeverity = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Dashboard/Index.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/FollowUps/Create.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/FollowUps/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRm9sbG93VXBzL0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Home/Index.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Home/Privacy.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Inspections/Create.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Inspections/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zcGVjdGlvbnMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Inspections/Details.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Inspections/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zcGVjdGlvbnMvRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Inspections/Index.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Inspections/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zcGVjdGlvbnMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Shared/Error.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Shared/_LoginPartial.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/_ViewImports.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/_ViewStart.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/Views/Shared/_Layout.cshtml]
+[/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-7hdhd7jvm1

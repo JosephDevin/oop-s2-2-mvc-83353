@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/oop-s2-2-mvc-83303.csproj": {}
+    "/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/oop-s2-2-mvc-83303.csproj": {}
   },
   "projects": {
-    "/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/oop-s2-2-mvc-83303.csproj": {
+    "/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/oop-s2-2-mvc-83303.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/oop-s2-2-mvc-83303.csproj",
+        "projectUniqueName": "/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/oop-s2-2-mvc-83303.csproj",
         "projectName": "oop-s2-2-mvc-83303",
-        "projectPath": "/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/oop-s2-2-mvc-83303.csproj",
+        "projectPath": "/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/oop-s2-2-mvc-83303.csproj",
         "packagesPath": "/home/fan/.nuget/packages/",
-        "outputPath": "/home/fan/Desktop/neuille/oop-s2-2-mvc-83303/obj/",
+        "outputPath": "/home/fan/oop-s2-2-mvc-83353/oop-s2-2-mvc-83303/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/fan/.nuget/NuGet/NuGet.Config"
@@ -37,8 +37,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "10.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -82,20 +81,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.23, 8.0.23]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.linux-x64",
-              "version": "[8.0.23, 8.0.23]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.23, 8.0.23]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -104,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/fan/.dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/256/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
